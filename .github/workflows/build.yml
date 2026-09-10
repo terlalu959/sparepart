@@ -8,23 +8,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Unzip project files
-      run: unzip sparepart-bis.zip -d .
+    - name: Ekstrak File ZIP
+      run: unzip *.zip -d .
       
-    - name: Fix Missing Keystore Issue
+    - name: Perbaiki Isu Keystore
       run: sed -i 's/signingConfig = signingConfigs.getByName("debugConfig")//g' app/build.gradle.kts
       
-    - name: Set up JDK 21
+    - name: Siapkan Java 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
         
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
+    - name: Build APK (Sistem Bawaan)
+      run: gradle assembleDebug
       
     - name: Upload APK
       uses: actions/upload-artifact@v4
